@@ -1,3 +1,6 @@
+using FluentAssertions;
+using DomainEntity = Streamly.Catalog.Domain.Entities;
+
 namespace Streamly.Catalog.UnitTests.Domain.Entity.Category;
 
 [Collection(nameof(CategoryTestFixture))]
@@ -16,7 +19,7 @@ public class CategoryTest(CategoryTestFixture fixture)
         #region Act
         
             var dateTimeBefore = DateTime.UtcNow;
-            var category = new Category(
+            var category = new DomainEntity.Category(
                 exampleCategory.Name, 
                 exampleCategory.Description
             );
