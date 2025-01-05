@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Streamly.Catalog.Domain.Exceptions;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 
 namespace Streamly.Catalog.UnitTests.Domain.Entity.Category;
