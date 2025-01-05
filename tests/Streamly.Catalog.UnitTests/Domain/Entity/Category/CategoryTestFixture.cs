@@ -10,3 +10,7 @@ public class CategoryTestFixture : BaseFixture
             Faker.Commerce.ProductDescription()
         );
 }
+
+[CollectionDefinition(nameof(CategoryTestFixture))]
+public class CategoryTestFixtureCollection 
+    : ICollectionFixture<CategoryTestFixture> {}
