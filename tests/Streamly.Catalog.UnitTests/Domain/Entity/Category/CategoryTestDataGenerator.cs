@@ -1,3 +1,5 @@
+using Bogus;
+
 namespace Streamly.Catalog.UnitTests.Domain.Entity.Category;
 
 public static class CategoryTestDataGenerator
@@ -28,6 +30,18 @@ public static class CategoryTestDataGenerator
             var invalidName = invalidValues[i % invalidValues.Length];
 
             yield return new object[] { invalidName! };
+        }
+    }
+
+    public static IEnumerable<object[]> GetInvalidCategoryWithLessThan3Characters(int numberOfTests)
+    {
+        var faker = new Faker();
+
+        for (var i = 0; i < numberOfTests; i++)
+        {
+            var isOdd = i % 2 == 1;
+
+            yield return new object[] { faker.Commerce.ProductName()[..(isOdd ? 1 : 2)] };
         }
     }
 }
