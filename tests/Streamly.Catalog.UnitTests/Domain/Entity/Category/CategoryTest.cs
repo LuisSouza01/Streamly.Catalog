@@ -102,4 +102,32 @@ public class CategoryTest(CategoryTestFixture fixture)
 
         #endregion
     }
+
+    [Theory(DisplayName = nameof(ShouldThrowWhenNameIsLessThan3Characters))]
+    [Trait("Domain", "Category - Aggregates")]
+    [MemberData(nameof(CategoryTestDataGenerator.GetInvalidCategoryWithLessThan3Characters), parameters: 10,
+        MemberType = typeof(CategoryTestDataGenerator))]
+    public void ShouldThrowWhenNameIsLessThan3Characters(string invalidName)
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => new DomainEntity.Category(invalidName, exampleCategory.Description);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage("Name should be at least 3 characters long.");
+
+        #endregion
+    }
+    
 }
