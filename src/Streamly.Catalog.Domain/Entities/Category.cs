@@ -24,5 +24,8 @@ public class Category : AggregateRoot
     {
         if (string.IsNullOrWhiteSpace(Name))
             throw new EntityValidationException("Name should not be empty or null");
+        
+        if (Name.Length < 3)
+            throw new EntityValidationException("Name should be at least 3 characters long.");
     }
 }
