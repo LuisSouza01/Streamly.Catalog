@@ -13,4 +13,21 @@ public static class CategoryTestDataGenerator
             yield return new object[] { isActive };
         }
     }
+
+    public static IEnumerable<object[]> GetInvalidCategoryName(int numberOfTests)
+    {
+        var invalidValues = new[]
+        {
+            string.Empty,
+            null,
+            "  "
+        };
+        
+        for (var i = 0; i < numberOfTests; i++)
+        {
+            var invalidName = invalidValues[i % invalidValues.Length];
+
+            yield return new object[] { invalidName! };
+        }
+    }
 }
