@@ -22,4 +22,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\Streamly.Catalog.Domain\Streamly.Catalog.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
