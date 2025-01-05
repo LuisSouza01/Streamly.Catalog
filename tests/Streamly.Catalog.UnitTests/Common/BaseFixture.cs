@@ -4,5 +4,5 @@ namespace Streamly.Catalog.UnitTests.Common;
 
 public class BaseFixture
 {
-    public Faker Faker { get; set; } = new ("en-US");
+    public Faker Faker { get; set; } = new ();
 }
