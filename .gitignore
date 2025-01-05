@@ -1,0 +1,60 @@
+# Build artifacts
+bin/
+obj/
+out/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+/packages/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Logs
+*.log
+*.tlog
+*.log2
+
+# Visual Studio Code
+.vscode/
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+*.iml
+/.idea/
+
+# ReSharper
+_ReSharper.Caches/
+
+# Coverage Results
+*.coverage
+*.coveragexml
+coverage.opencover.xml
+
+# Test Results
+TestResults/
+
+# Build output
+*.dll
+*.exe
+*.app
+*.apk
+*.so
+*.dylib
+*.lib
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# OS-generated files
+Thumbs.db
+.DS_Store
