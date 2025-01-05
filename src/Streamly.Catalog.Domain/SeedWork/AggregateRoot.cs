@@ -1,6 +1,6 @@
 namespace Streamly.Catalog.Domain.SeedWork;
 
-public class AggregateRoot
+public class AggregateRoot : Entity
 {
     
 }

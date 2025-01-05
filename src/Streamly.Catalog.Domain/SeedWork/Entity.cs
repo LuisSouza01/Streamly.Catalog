@@ -1,6 +1,6 @@
 namespace Streamly.Catalog.Domain.SeedWork;
 
-public class Entity
+public abstract class Entity
 {
-    
+    public Guid Id { get; private set; } = Guid.NewGuid();
 }
