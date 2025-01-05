@@ -77,10 +77,10 @@ public class CategoryTest(CategoryTestFixture fixture)
         #endregion
     }
 
-    [Theory(DisplayName = nameof(ShouldThrowWhenTryToInstantiateWithNameNullOrEmpty))]
+    [Theory(DisplayName = nameof(ShouldThrowWhenNameIsNullOrEmpty))]
     [Trait("Domain", "Category - Aggregates")]
     [MemberData(nameof(CategoryTestDataGenerator.GetInvalidCategoryName), parameters: 9, MemberType = typeof(CategoryTestDataGenerator))]
-    public void ShouldThrowWhenTryToInstantiateWithNameNullOrEmpty(string? invalidName)
+    public void ShouldThrowWhenNameIsNullOrEmpty(string? invalidName)
     {
         #region Arrange
 
