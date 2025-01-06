@@ -33,9 +33,9 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
         #endregion
     }
     
-    [Fact(DisplayName = nameof(ShouldNotThrowWhenValueIsValid))]
+    [Fact(DisplayName = nameof(ShouldNotThrowWhenValueIsNotNull))]
     [Trait("Domain", "DomainValidation - Validation")]
-    public void ShouldNotThrowWhenValueIsValid()
+    public void ShouldNotThrowWhenValueIsNotNull()
     {
         #region Arrange
 
