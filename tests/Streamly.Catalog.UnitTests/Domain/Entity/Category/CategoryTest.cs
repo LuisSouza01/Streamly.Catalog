@@ -233,4 +233,33 @@ public class CategoryTest(CategoryTestFixture fixture)
 
         #endregion
     }
+
+    [Fact(DisplayName = nameof(ShouldUpdateCorrectly))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void ShouldUpdateCorrectly()
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+            
+            var exampleCategoryWithNewValues = fixture.GetExampleCategory();
+
+        #endregion
+
+        #region Act
+
+            exampleCategory.Update(
+                exampleCategoryWithNewValues.Name, 
+                exampleCategoryWithNewValues.Description
+            );
+
+        #endregion
+
+        #region Assert
+
+            exampleCategory.Name.Should().Be(exampleCategoryWithNewValues.Name);
+            exampleCategory.Description.Should().Be(exampleCategoryWithNewValues.Description);
+
+        #endregion
+    }
 }
