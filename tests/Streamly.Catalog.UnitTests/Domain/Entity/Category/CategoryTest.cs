@@ -317,7 +317,7 @@ public class CategoryTest(CategoryTestFixture fixture)
         #endregion
     }
     
-    [Theory(DisplayName = nameof(ShouldThrowWhenNameIsLessThan3Characters))]
+    [Theory(DisplayName = nameof(ShouldThrowWhenTryUpdateIfNameLessThan3Characters))]
     [Trait("Domain", "Category - Aggregates")]
     [MemberData(nameof(CategoryTestDataGenerator.GetInvalidCategoryNameWithLessThan3Characters), parameters: 10,
         MemberType = typeof(CategoryTestDataGenerator))]
@@ -340,6 +340,33 @@ public class CategoryTest(CategoryTestFixture fixture)
 
             action.Should().Throw<EntityValidationException>()
                 .WithMessage("Name should be at least 3 characters long.");
+
+        #endregion
+    }
+    
+    [Theory(DisplayName = nameof(ShouldThrowWhenNTryUpdateIfNameGraterThan255Characters))]
+    [Trait("Domain", "Category - Aggregates")]
+    [MemberData(nameof(CategoryTestDataGenerator.GetInvalidCategoryNameWithMoreThan255Characters), parameters: 10,
+        MemberType = typeof(CategoryTestDataGenerator))]
+    public void ShouldThrowWhenNTryUpdateIfNameGraterThan255Characters(string invalidName)
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => exampleCategory.Update(invalidName);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage("Name should be less or equal 255 characters long.");
 
         #endregion
     }
