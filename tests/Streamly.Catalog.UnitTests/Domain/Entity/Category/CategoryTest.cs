@@ -156,5 +156,31 @@ public class CategoryTest(CategoryTestFixture fixture)
 
         #endregion
     }
-    
+
+    [Fact(DisplayName = nameof(ShouldThrowWhenDescriptionIsGreaterThan10_000Characters))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void ShouldThrowWhenDescriptionIsGreaterThan10_000Characters()
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+            
+            var invalidDescription = string.Join(null, Enumerable.Range(1, 10_0001).Select(_ => "a").ToArray());
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => new DomainEntity.Category(exampleCategory.Name, invalidDescription);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage("Description should be less or equal 10000 characters long.");
+
+        #endregion
+    }
 }
