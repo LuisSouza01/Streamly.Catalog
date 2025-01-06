@@ -6,6 +6,9 @@ public class DomainValidationTestFixture : BaseFixture
 {
     public string GetExampleFieldName()
         => Faker.Commerce.ProductName().Replace(" ", "");
+    
+    public string GetExampleValue()
+        => Faker.Commerce.ProductName();
 }
 
 [CollectionDefinition(nameof(DomainValidationTestFixture))]
