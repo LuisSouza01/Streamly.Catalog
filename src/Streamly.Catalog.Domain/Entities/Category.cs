@@ -20,6 +20,13 @@ public class Category : AggregateRoot
         Validate();
     }
 
+    public void Activate()
+    {
+        IsActive = true;
+        
+        Validate();
+    }
+
     private void Validate()
     {
         if (string.IsNullOrWhiteSpace(Name))
