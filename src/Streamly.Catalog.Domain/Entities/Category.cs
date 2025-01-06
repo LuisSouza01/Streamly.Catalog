@@ -30,5 +30,8 @@ public class Category : AggregateRoot
         
         if (Name.Length > 255)
             throw new EntityValidationException("Name should be less or equal 255 characters long.");
+        
+        if (Description.Length > 10_000)
+            throw new EntityValidationException("Description should be less or equal 10000 characters long.");
     }
 }
