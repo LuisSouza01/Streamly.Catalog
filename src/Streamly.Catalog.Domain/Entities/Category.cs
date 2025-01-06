@@ -26,6 +26,13 @@ public class Category : AggregateRoot
         
         Validate();
     }
+    
+    public void Deactivate()
+    {
+        IsActive = false;
+        
+        Validate();
+    }
 
     private void Validate()
     {
