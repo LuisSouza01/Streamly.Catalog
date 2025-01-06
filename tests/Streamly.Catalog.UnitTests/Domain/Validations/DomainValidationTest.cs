@@ -57,4 +57,30 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
 
         #endregion
     }
+    
+    [Fact(DisplayName = nameof(ShouldThrowWhenValueIsNullOrEmpty))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    public void ShouldThrowWhenValueIsNullOrEmpty()
+    {
+        #region Arrange
+
+            string? value = null;
+            var fieldName = fixture.GetExampleFieldName();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => DomainValidation.NotNullOrEmpty(value, fieldName);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage($"{fieldName} should not be empty or null.");
+
+        #endregion
+    }
 }
