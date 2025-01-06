@@ -183,4 +183,29 @@ public class CategoryTest(CategoryTestFixture fixture)
 
         #endregion
     }
+
+    [Fact(DisplayName = nameof(ShouldSetIsActiveToTrueWhenActivateIsCalled))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void ShouldSetIsActiveToTrueWhenActivateIsCalled()
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+
+        #endregion
+
+        #region Act
+
+            var category = new DomainEntity.Category(exampleCategory.Name, exampleCategory.Description, false);
+            
+            category.Activate();
+
+        #endregion
+
+        #region Assert
+
+            category.IsActive.Should().BeTrue();
+
+        #endregion
+    }
 }
