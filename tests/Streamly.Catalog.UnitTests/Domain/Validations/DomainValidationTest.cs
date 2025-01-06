@@ -1,4 +1,6 @@
+using FluentAssertions;
 using Streamly.Catalog.Domain.Exceptions;
+using Streamly.Catalog.Domain.Validations;
 
 namespace Streamly.Catalog.UnitTests.Domain.Validations;
 
