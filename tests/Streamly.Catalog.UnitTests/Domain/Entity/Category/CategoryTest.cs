@@ -208,4 +208,29 @@ public class CategoryTest(CategoryTestFixture fixture)
 
         #endregion
     }
+    
+    [Fact(DisplayName = nameof(ShouldSetIsActiveToFalseWhenDeactivateIsCalled))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void ShouldSetIsActiveToFalseWhenDeactivateIsCalled()
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+
+        #endregion
+
+        #region Act
+
+            var category = new DomainEntity.Category(exampleCategory.Name, exampleCategory.Description, true);
+                
+            category.Deactivate();
+
+        #endregion
+
+        #region Assert
+
+            category.IsActive.Should().BeFalse();
+
+        #endregion
+    }
 }
