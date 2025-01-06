@@ -2,7 +2,7 @@ using FluentAssertions;
 using Streamly.Catalog.Domain.Exceptions;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 
-namespace Streamly.Catalog.UnitTests.Domain.Entity.Category;
+namespace Streamly.Catalog.UnitTests.Domain.Entities.Category;
 
 [Collection(nameof(CategoryTestFixture))]
 public class CategoryTest(CategoryTestFixture fixture)

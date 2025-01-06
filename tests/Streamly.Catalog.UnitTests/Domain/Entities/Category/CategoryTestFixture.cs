@@ -1,7 +1,7 @@
 using Streamly.Catalog.UnitTests.Common;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 
-namespace Streamly.Catalog.UnitTests.Domain.Entity.Category;
+namespace Streamly.Catalog.UnitTests.Domain.Entities.Category;
 
 public class CategoryTestFixture : BaseFixture
 {

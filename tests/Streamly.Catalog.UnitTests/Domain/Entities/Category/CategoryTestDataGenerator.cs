@@ -1,6 +1,6 @@
 using Bogus;
 
-namespace Streamly.Catalog.UnitTests.Domain.Entity.Category;
+namespace Streamly.Catalog.UnitTests.Domain.Entities.Category;
 
 public static class CategoryTestDataGenerator
 {
