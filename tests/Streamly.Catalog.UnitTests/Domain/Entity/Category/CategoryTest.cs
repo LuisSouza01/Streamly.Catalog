@@ -130,4 +130,31 @@ public class CategoryTest(CategoryTestFixture fixture)
         #endregion
     }
     
+    [Theory(DisplayName = nameof(ShouldThrowWhenNameIsGraterThan255Characters))]
+    [Trait("Domain", "Category - Aggregates")]
+    [MemberData(nameof(CategoryTestDataGenerator.GetInvalidCategoryNameWithMoreThan255Characters), parameters: 10,
+        MemberType = typeof(CategoryTestDataGenerator))]
+    public void ShouldThrowWhenNameIsGraterThan255Characters(string invalidName)
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => new DomainEntity.Category(invalidName, exampleCategory.Description);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage("Name should be less or equal 255 characters long.");
+
+        #endregion
+    }
+    
 }
