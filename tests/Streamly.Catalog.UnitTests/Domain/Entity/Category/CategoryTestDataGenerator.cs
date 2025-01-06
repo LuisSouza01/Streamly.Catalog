@@ -44,4 +44,19 @@ public static class CategoryTestDataGenerator
             yield return new object[] { faker.Commerce.ProductName()[..(isOdd ? 1 : 2)] };
         }
     }
+    
+    public static IEnumerable<object[]> GetInvalidCategoryNameWithMoreThan255Characters(int numberOfTests)
+    {
+        var faker = new Faker();
+
+        for (var i = 0; i < numberOfTests; i++)
+        {
+            var categoryName = faker.Commerce.ProductName();
+
+            while (categoryName.Length <= 255)
+                categoryName = $"{categoryName} {faker.Commerce.ProductName()}";
+
+            yield return new object[] { categoryName };
+        }
+    }
 }
