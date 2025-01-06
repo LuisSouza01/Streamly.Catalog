@@ -1,6 +1,7 @@
 namespace Streamly.Catalog.UnitTests.Domain.Validations;
 
-public class DomainValidationTest
+[Collection(nameof(DomainValidationTestFixture))]
+public class DomainValidationTest(DomainValidationTestFixture fixture)
 {
     
 }
