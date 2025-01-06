@@ -32,4 +32,29 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
 
         #endregion
     }
+    
+    [Fact(DisplayName = nameof(ShouldNotThrowWhenValueIsValid))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    public void ShouldNotThrowWhenValueIsValid()
+    {
+        #region Arrange
+
+            var value = fixture.GetExampleValue();
+            var fieldName = fixture.GetExampleFieldName();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => DomainValidation.NotNull(value, fieldName);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().NotThrow();
+
+        #endregion
+    }
 }
