@@ -83,4 +83,29 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
 
         #endregion
     }
+    
+    [Fact(DisplayName = nameof(ShouldNotThrowWhenValueIsNotNullOrEmpty))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    public void ShouldNotThrowWhenValueIsNotNullOrEmpty()
+    {
+        #region Arrange
+
+            var value = fixture.GetExampleValue();
+            var fieldName = fixture.GetExampleFieldName();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => DomainValidation.NotNullOrEmpty(value, fieldName);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().NotThrow();
+
+        #endregion
+    }
 }
