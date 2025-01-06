@@ -105,7 +105,7 @@ public class CategoryTest(CategoryTestFixture fixture)
 
     [Theory(DisplayName = nameof(ShouldThrowWhenNameIsLessThan3Characters))]
     [Trait("Domain", "Category - Aggregates")]
-    [MemberData(nameof(CategoryTestDataGenerator.GetInvalidCategoryWithLessThan3Characters), parameters: 10,
+    [MemberData(nameof(CategoryTestDataGenerator.GetInvalidCategoryNameWithLessThan3Characters), parameters: 10,
         MemberType = typeof(CategoryTestDataGenerator))]
     public void ShouldThrowWhenNameIsLessThan3Characters(string invalidName)
     {

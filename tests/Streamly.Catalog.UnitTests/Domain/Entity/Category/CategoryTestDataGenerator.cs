@@ -33,7 +33,7 @@ public static class CategoryTestDataGenerator
         }
     }
 
-    public static IEnumerable<object[]> GetInvalidCategoryWithLessThan3Characters(int numberOfTests)
+    public static IEnumerable<object[]> GetInvalidCategoryNameWithLessThan3Characters(int numberOfTests)
     {
         var faker = new Faker();
 
