@@ -290,4 +290,30 @@ public class CategoryTest(CategoryTestFixture fixture)
 
         #endregion
     }
+    
+    [Theory(DisplayName = nameof(ShouldThrowWhenTryUpdateIfNameNullOrEmpty))]
+    [Trait("Domain", "Category - Aggregates")]
+    [MemberData(nameof(CategoryTestDataGenerator.GetInvalidCategoryName), parameters: 9, MemberType = typeof(CategoryTestDataGenerator))]
+    public void ShouldThrowWhenTryUpdateIfNameNullOrEmpty(string? invalidName)
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => exampleCategory.Update(invalidName!);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage("Name should not be empty or null.");
+
+        #endregion
+    }
 }
