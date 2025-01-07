@@ -8,6 +8,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8C3E89EE-5B3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streamly.Catalog.Domain", "src\Streamly.Catalog.Domain\Streamly.Catalog.Domain.csproj", "{1810FC66-14CE-4B6A-89FC-7DD68CDB7269}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Streamly.Catalog.Application", "src\Streamly.Catalog.Application\Streamly.Catalog.Application.csproj", "{EDF33D1A-07C1-4646-B6A2-A190B5037C66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,6 +18,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{62D2298E-E3F1-4955-98D3-3E9B32404B18} = {06246032-200B-4E71-8F00-C62630B1B554}
 		{1810FC66-14CE-4B6A-89FC-7DD68CDB7269} = {8C3E89EE-5B32-4CBF-98C8-C6C045B8C662}
+		{EDF33D1A-07C1-4646-B6A2-A190B5037C66} = {8C3E89EE-5B32-4CBF-98C8-C6C045B8C662}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{62D2298E-E3F1-4955-98D3-3E9B32404B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,5 +29,9 @@ Global
 		{1810FC66-14CE-4B6A-89FC-7DD68CDB7269}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1810FC66-14CE-4B6A-89FC-7DD68CDB7269}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1810FC66-14CE-4B6A-89FC-7DD68CDB7269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF33D1A-07C1-4646-B6A2-A190B5037C66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF33D1A-07C1-4646-B6A2-A190B5037C66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF33D1A-07C1-4646-B6A2-A190B5037C66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF33D1A-07C1-4646-B6A2-A190B5037C66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
