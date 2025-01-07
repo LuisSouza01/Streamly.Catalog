@@ -175,7 +175,7 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
     [Theory(DisplayName = nameof(ShouldThrowWhenValueGreaterThanMax))]
     [Trait("Domain", "DomainValidation - Validation")]
     [MemberData(
-        nameof(DomainValidationTestDataGenerator.GetValuesSmallerThanLength), 
+        nameof(DomainValidationTestDataGenerator.GetValuesGreaterThanLength), 
         parameters: 10, 
         MemberType = typeof(DomainValidationTestDataGenerator)
     )]
