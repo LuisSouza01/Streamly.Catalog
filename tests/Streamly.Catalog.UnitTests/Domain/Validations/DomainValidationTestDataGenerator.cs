@@ -34,4 +34,18 @@ public static class DomainValidationTestDataGenerator
             yield return new object[] { value, minLength };
         }
     }
+    
+    public static IEnumerable<object[]> GetValuesGreaterThanMin(int numberOfTests)
+    {
+        var faker = new Faker();
+
+        for (var i = 0; i < numberOfTests; i++)
+        {
+            var value = faker.Commerce.ProductName();
+
+            var minLength = value.Length - new Random().Next(1, 5);
+
+            yield return new object[] { value, minLength };
+        }
+    }
 }
