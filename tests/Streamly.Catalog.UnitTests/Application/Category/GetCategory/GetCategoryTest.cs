@@ -1,4 +1,6 @@
 using Moq;
+using FluentAssertions;
+using UseCases = Streamly.Catalog.Application.UseCases.Category.GetCategory;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.GetCategory;
 
