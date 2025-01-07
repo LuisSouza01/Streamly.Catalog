@@ -1,6 +1,7 @@
 namespace Streamly.Catalog.UnitTests.Application.Category.CreateCategory;
 
-public class CreateCategoryTest
+[Collection(nameof(CreateCategoryTestFixture))]
+public class CreateCategoryTest(CreateCategoryTestFixture fixture)
 {
     
 }
