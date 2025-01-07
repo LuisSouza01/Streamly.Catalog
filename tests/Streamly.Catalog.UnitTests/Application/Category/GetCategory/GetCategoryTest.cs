@@ -1,5 +1,6 @@
 using Moq;
 using FluentAssertions;
+using Exceptions = Streamly.Catalog.Application.Exceptions;
 using UseCases = Streamly.Catalog.Application.UseCases.Category.GetCategory;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.GetCategory;
@@ -62,41 +63,41 @@ public class GetCategoryTest(GetCategoryTestFixture fixture)
     {
         #region Arrange
 
-        var exampleGuid = Guid.NewGuid();
-                
-        var repositoryMock = fixture.GetCategoryRepositoryMock();
-                
-        repositoryMock.Setup(x =>
-            x.GetAsync(
-                It.IsAny<Guid>(), 
-                It.IsAny<CancellationToken>()
-            )
-        ).ThrowsAsync(new Exceptions.NotFoundException($"Category '{exampleGuid}' not found."));
-                
-        var input = new UseCases.GetCategoryInput(exampleGuid);
+            var exampleGuid = Guid.NewGuid();
+                    
+            var repositoryMock = fixture.GetCategoryRepositoryMock();
+                    
+            repositoryMock.Setup(x =>
+                x.GetAsync(
+                    It.IsAny<Guid>(), 
+                    It.IsAny<CancellationToken>()
+                )
+            ).ThrowsAsync(new Exceptions.NotFoundException($"Category '{exampleGuid}' not found."));
+                    
+            var input = new UseCases.GetCategoryInput(exampleGuid);
 
-        var useCase = new UseCases.GetCategory(repositoryMock.Object);
+            var useCase = new UseCases.GetCategory(repositoryMock.Object);
 
         #endregion
 
         #region Act
 
-        var task = 
-            async () => await useCase.Handle(input, CancellationToken.None);
+            var task = 
+                async () => await useCase.Handle(input, CancellationToken.None);
 
         #endregion
 
         #region Assert
         
-        await task.Should().ThrowAsync<Exceptions.NotFoundException>();
+            await task.Should().ThrowAsync<Exceptions.NotFoundException>();
 
-        repositoryMock.Verify(
-            repository => repository.GetAsync(
-                It.IsAny<Guid>(), 
-                It.IsAny<CancellationToken>()
-            ), 
-            Times.Once
-        );
+            repositoryMock.Verify(
+                repository => repository.GetAsync(
+                    It.IsAny<Guid>(), 
+                    It.IsAny<CancellationToken>()
+                ), 
+                Times.Once
+            );
 
         #endregion
     }
