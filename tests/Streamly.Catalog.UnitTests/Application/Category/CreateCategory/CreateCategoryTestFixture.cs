@@ -21,7 +21,7 @@ public class CreateCategoryTestFixture : BaseFixture
             GetRandomBoolean()
         );
     
-    private string GetValidName()
+    public string GetValidName()
     {
         var categoryName = string.Empty;
 

@@ -58,4 +58,55 @@ public class CreateCategoryTest(CreateCategoryTestFixture fixture)
 
         #endregion
     }
+    
+    [Fact(DisplayName = nameof(ShouldCreateCategoryWithOnlyName))]
+    [Trait("Application", "Category - UseCases")]
+    public async Task ShouldCreateCategoryWithOnlyName()
+    {
+        #region Arrange
+
+            var unitOfWorkMock = fixture.GetUnitOfWorkMock();
+            var repositoryMock = fixture.GetCategoryRepositoryMock();
+                
+            var useCase = new UseCases.CreateCategory(
+                unitOfWorkMock.Object,
+                repositoryMock.Object
+            );
+
+            var input = new UseCases.CreateCategoryInput(fixture.GetValidName());
+
+        #endregion
+
+        #region Act
+
+            var output = await useCase.Handle(input, CancellationToken.None);
+
+        #endregion
+
+        #region Assert
+
+            repositoryMock.Verify(
+                repository => repository.InsertAsync(
+                    It.IsAny<DomainEntity.Category>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Once
+            );
+                
+            unitOfWorkMock.Verify(
+                uow => uow.CommitAsync(
+                    It.IsAny<CancellationToken>() 
+                ),
+                Times.Once
+            );
+                
+            output.Should().NotBeNull();
+            output.Id.Should().NotBeEmpty();
+            output.Name.Should().Be(input.Name);
+            output.Description.Should().BeEmpty();
+            output.IsActive.Should().BeTrue();
+            output.CreatedAt.Should().NotBeSameDateAs(default);
+
+        #endregion
+    }
 }
