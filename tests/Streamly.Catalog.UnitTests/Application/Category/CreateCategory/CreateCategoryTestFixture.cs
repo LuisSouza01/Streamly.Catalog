@@ -46,6 +46,57 @@ public class CreateCategoryTestFixture : BaseFixture
 
     private bool GetRandomBoolean()
         => new Random().NextDouble() < 0.5;
+    
+    public CreateCategoryInput GetInvalidCategoryInputShortName()
+    {
+        var invalidInputShortName = GetValidCategoryInput();
+
+        invalidInputShortName.Name = invalidInputShortName.Name[..2];
+
+        return invalidInputShortName;
+    }
+
+    public CreateCategoryInput GetInvalidCategoryInputTooLongName()
+    {
+        var invalidInputTooLongName = GetValidCategoryInput();
+
+        while (invalidInputTooLongName.Name.Length <= 255)
+            invalidInputTooLongName.Name = $"{invalidInputTooLongName.Name} {invalidInputTooLongName.Name}";
+
+        return invalidInputTooLongName;
+    }
+
+    public CreateCategoryInput GetInvalidCategoryInputNameNull()
+    {
+        var invalidNameNull = GetValidCategoryInput();
+
+        invalidNameNull.Name = null!;
+
+        return invalidNameNull;
+    }
+
+    public CreateCategoryInput GetInvalidCategoryInputDescriptionNull()
+    {
+        var invalidDescriptionNull = GetValidCategoryInput();
+
+        invalidDescriptionNull.Description = null!;
+
+        return invalidDescriptionNull;
+    }
+
+    public CreateCategoryInput GetInvalidCategoryInputTooLongDescription()
+    {
+        var invalidInputTooLongDescription = GetValidCategoryInput();
+
+        var tooLongDescriptionForCategory = Faker.Commerce.ProductDescription();
+
+        while (tooLongDescriptionForCategory.Length <= 10_000)
+            tooLongDescriptionForCategory = $"{tooLongDescriptionForCategory} {tooLongDescriptionForCategory}";
+
+        invalidInputTooLongDescription.Description = tooLongDescriptionForCategory;
+
+        return invalidInputTooLongDescription;
+    }
 }
 
 [CollectionDefinition(nameof(CreateCategoryTestFixture))]
