@@ -1,5 +1,6 @@
 using Streamly.Catalog.Domain.Exceptions;
 using Streamly.Catalog.Domain.SeedWork;
+using Streamly.Catalog.Domain.Validations;
 
 namespace Streamly.Catalog.Domain.Entities;
 
@@ -44,16 +45,12 @@ public class Category : AggregateRoot
 
     private void Validate()
     {
-        if (string.IsNullOrWhiteSpace(Name))
-            throw new EntityValidationException("Name should not be empty or null.");
+        DomainValidation.NotNullOrEmpty(Name, nameof(Name));
         
-        if (Name.Length < 3)
-            throw new EntityValidationException("Name should be at least 3 characters long.");
+        DomainValidation.MinLength(Name, 3, nameof(Name));
         
-        if (Name.Length > 255)
-            throw new EntityValidationException("Name should be less or equal 255 characters long.");
+        DomainValidation.MaxLength(Name, 255, nameof(Name));
         
-        if (Description.Length > 10_000)
-            throw new EntityValidationException("Description should be less or equal 10000 characters long.");
+        DomainValidation.MaxLength(Description, 10_000, nameof(Description));
     }
 }
