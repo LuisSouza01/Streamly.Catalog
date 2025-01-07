@@ -112,4 +112,34 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
 
         #endregion
     }
+    
+    [Theory(DisplayName = nameof(ShouldThrowWhenValueSmallerThanMin))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    [MemberData(
+        nameof(DomainValidationTestDataGenerator.GetValuesSmallerThanMin), 
+        parameters: 10, 
+        MemberType = typeof(DomainValidationTestDataGenerator)
+    )]
+    public void ShouldThrowWhenValueSmallerThanMin(string invalidValue, int minLength)
+    {
+        #region Arrange
+        
+            var fieldName = fixture.GetExampleFieldName();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => DomainValidation.MinLength(invalidValue, minLength, fieldName);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage($"{fieldName} should be at least {minLength} characters long.");
+
+        #endregion
+    }
 }
