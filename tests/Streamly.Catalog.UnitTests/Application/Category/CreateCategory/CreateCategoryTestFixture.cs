@@ -4,3 +4,7 @@ public class CreateCategoryTestFixture
 {
     
 }
+
+[CollectionDefinition(nameof(CreateCategoryTestFixture))]
+public class CreateCategoryTestFixtureCollection
+    : ICollectionFixture<CreateCategoryTestFixture> {}
