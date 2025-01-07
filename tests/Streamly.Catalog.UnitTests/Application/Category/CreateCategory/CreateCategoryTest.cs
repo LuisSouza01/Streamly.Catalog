@@ -1,5 +1,6 @@
 using Moq;
 using FluentAssertions;
+using Streamly.Catalog.Domain.Exceptions;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 using UseCases = Streamly.Catalog.Application.UseCases.Category.CreateCategory;
 
@@ -160,6 +161,42 @@ public class CreateCategoryTest(CreateCategoryTestFixture fixture)
             output.Description.Should().Be(input.Description);
             output.IsActive.Should().BeTrue();
             output.CreatedAt.Should().NotBeSameDateAs(default);
+
+        #endregion
+    }
+
+    [Theory(DisplayName = nameof(ShouldThrowWhenTryToCreateCategory))]
+    [Trait("Application", "Category - UseCases")]
+    [MemberData(
+        nameof(CreateCategoryTestDataGenerator.GetInvalidInputs), 
+        parameters: 20, 
+        MemberType = typeof(CreateCategoryTestDataGenerator)
+    )]
+    public async Task ShouldThrowWhenTryToCreateCategory(UseCases.CreateCategoryInput invalidInput, string exceptionMessage)
+    {
+        #region Arrange
+
+            var unitOfWorkMock = fixture.GetUnitOfWorkMock();
+            var repositoryMock = fixture.GetCategoryRepositoryMock();
+                
+            var useCase = new UseCases.CreateCategory(
+                unitOfWorkMock.Object,
+                repositoryMock.Object
+            );
+
+        #endregion
+
+        #region Act
+
+            var task =
+                async () => await useCase.Handle(invalidInput, CancellationToken.None);
+
+        #endregion
+
+        #region Assert
+
+            await task.Should().ThrowAsync<EntityValidationException>()
+                .WithMessage(exceptionMessage);
 
         #endregion
     }
