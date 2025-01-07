@@ -58,13 +58,17 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
         #endregion
     }
     
-    [Fact(DisplayName = nameof(ShouldThrowWhenValueIsNullOrEmpty))]
+    [Theory(DisplayName = nameof(ShouldThrowWhenValueIsNullOrEmpty))]
     [Trait("Domain", "DomainValidation - Validation")]
-    public void ShouldThrowWhenValueIsNullOrEmpty()
+    [MemberData(
+        nameof(DomainValidationTestDataGenerator.GetInvalidValues), 
+        parameters: 10, 
+        MemberType = typeof(DomainValidationTestDataGenerator)
+    )]
+    public void ShouldThrowWhenValueIsNullOrEmpty(string? invalidValue)
     {
         #region Arrange
-
-            string? value = null;
+        
             var fieldName = fixture.GetExampleFieldName();
 
         #endregion
@@ -72,7 +76,7 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
         #region Act
 
             var action =
-                () => DomainValidation.NotNullOrEmpty(value, fieldName);
+                () => DomainValidation.NotNullOrEmpty(invalidValue, fieldName);
 
         #endregion
 
