@@ -1,5 +1,6 @@
 using Moq;
 using Streamly.Catalog.UnitTests.Common;
+using Streamly.Catalog.Domain.Repositories;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.CreateCategory;
 
