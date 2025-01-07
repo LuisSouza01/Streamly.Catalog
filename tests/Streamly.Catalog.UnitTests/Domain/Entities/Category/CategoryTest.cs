@@ -206,7 +206,7 @@ public class CategoryTest(CategoryTestFixture fixture)
         #region Assert
 
             action.Should().Throw<EntityValidationException>()
-                .WithMessage("Description should be null.");
+                .WithMessage("Description should not be null.");
 
         #endregion
     }
