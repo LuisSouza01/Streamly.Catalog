@@ -116,7 +116,7 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
     [Theory(DisplayName = nameof(ShouldThrowWhenValueSmallerThanMin))]
     [Trait("Domain", "DomainValidation - Validation")]
     [MemberData(
-        nameof(DomainValidationTestDataGenerator.GetValuesSmallerThanMin), 
+        nameof(DomainValidationTestDataGenerator.GetValuesSmallerThanLength), 
         parameters: 10, 
         MemberType = typeof(DomainValidationTestDataGenerator)
     )]
@@ -146,7 +146,7 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
     [Theory(DisplayName = nameof(ShouldNotThrowWhenValueGreaterThanMin))]
     [Trait("Domain", "DomainValidation - Validation")]
     [MemberData(
-        nameof(DomainValidationTestDataGenerator.GetValuesGreaterThanMin), 
+        nameof(DomainValidationTestDataGenerator.GetValuesGreaterThanLength), 
         parameters: 10, 
         MemberType = typeof(DomainValidationTestDataGenerator)
     )]

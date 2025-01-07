@@ -21,7 +21,7 @@ public static class DomainValidationTestDataGenerator
         }
     }
 
-    public static IEnumerable<object[]> GetValuesSmallerThanMin(int numberOfTests)
+    public static IEnumerable<object[]> GetValuesSmallerThanLength(int numberOfTests)
     {
         var faker = new Faker();
 
@@ -29,13 +29,13 @@ public static class DomainValidationTestDataGenerator
         {
             var value = faker.Commerce.ProductName();
 
-            var minLength = value.Length + new Random().Next(1, 20);
+            var length = value.Length + new Random().Next(1, 20);
 
-            yield return new object[] { value, minLength };
+            yield return new object[] { value, length };
         }
     }
     
-    public static IEnumerable<object[]> GetValuesGreaterThanMin(int numberOfTests)
+    public static IEnumerable<object[]> GetValuesGreaterThanLength(int numberOfTests)
     {
         var faker = new Faker();
 
@@ -43,9 +43,9 @@ public static class DomainValidationTestDataGenerator
         {
             var value = faker.Commerce.ProductName();
 
-            var minLength = value.Length - new Random().Next(1, 5);
+            var length = value.Length - new Random().Next(1, 5);
 
-            yield return new object[] { value, minLength };
+            yield return new object[] { value, length };
         }
     }
 }
