@@ -1,6 +1,7 @@
 using Moq;
 using FluentAssertions;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
+using UseCases = Streamly.Catalog.Application.UseCases.Category.CreateCategory;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.CreateCategory;
 
