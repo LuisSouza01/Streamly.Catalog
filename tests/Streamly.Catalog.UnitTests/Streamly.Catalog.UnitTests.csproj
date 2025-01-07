@@ -24,6 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\Streamly.Catalog.Application\Streamly.Catalog.Application.csproj" />
       <ProjectReference Include="..\..\src\Streamly.Catalog.Domain\Streamly.Catalog.Domain.csproj" />
     </ItemGroup>
 

@@ -1,4 +1,5 @@
 using Moq;
+using Streamly.Catalog.Application.Interfaces;
 using Streamly.Catalog.UnitTests.Common;
 using Streamly.Catalog.Domain.Repositories;
 
