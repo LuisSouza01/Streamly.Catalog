@@ -55,4 +55,49 @@ public class GetCategoryTest(GetCategoryTestFixture fixture)
 
         #endregion
     }
+    
+    [Fact(DisplayName = nameof(ShouldThrowNotFoundExceptionWhenCategoryDoesNotExists))]
+    [Trait("Application", "GetCategory - UseCases")]
+    public async Task ShouldThrowNotFoundExceptionWhenCategoryDoesNotExists()
+    {
+        #region Arrange
+
+        var exampleGuid = Guid.NewGuid();
+                
+        var repositoryMock = fixture.GetCategoryRepositoryMock();
+                
+        repositoryMock.Setup(x =>
+            x.GetAsync(
+                It.IsAny<Guid>(), 
+                It.IsAny<CancellationToken>()
+            )
+        ).ThrowsAsync(new Exceptions.NotFoundException($"Category '{exampleGuid}' not found."));
+                
+        var input = new UseCases.GetCategoryInput(exampleGuid);
+
+        var useCase = new UseCases.GetCategory(repositoryMock.Object);
+
+        #endregion
+
+        #region Act
+
+        var task = 
+            async () => await useCase.Handle(input, CancellationToken.None);
+
+        #endregion
+
+        #region Assert
+        
+        await task.Should().ThrowAsync<Exceptions.NotFoundException>();
+
+        repositoryMock.Verify(
+            repository => repository.GetAsync(
+                It.IsAny<Guid>(), 
+                It.IsAny<CancellationToken>()
+            ), 
+            Times.Once
+        );
+
+        #endregion
+    }
 }
