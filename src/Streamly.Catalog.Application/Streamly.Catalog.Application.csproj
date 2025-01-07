@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="UseCases\Category\CreateCategory\" />
+      <PackageReference Include="MediatR" Version="12.4.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="12.4.1" />
+      <ProjectReference Include="..\Streamly.Catalog.Domain\Streamly.Catalog.Domain.csproj" />
     </ItemGroup>
 
 </Project>
