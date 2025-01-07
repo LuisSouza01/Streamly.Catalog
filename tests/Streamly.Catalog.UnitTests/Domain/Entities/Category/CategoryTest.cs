@@ -183,6 +183,33 @@ public class CategoryTest(CategoryTestFixture fixture)
 
         #endregion
     }
+    
+    [Fact(DisplayName = nameof(ShouldThrowWhenDescriptionIsNull))]
+    [Trait("Domain", "Category - Aggregates")]
+    public void ShouldThrowWhenDescriptionIsNull()
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+
+            string? invalidDescription = null;
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => new DomainEntity.Category(exampleCategory.Name, invalidDescription!);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage("Description should be null.");
+
+        #endregion
+    }
 
     [Fact(DisplayName = nameof(ShouldSetIsActiveToTrueWhenActivateIsCalled))]
     [Trait("Domain", "Category - Aggregates")]
