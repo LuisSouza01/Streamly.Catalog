@@ -1,6 +1,7 @@
 namespace Streamly.Catalog.UnitTests.Application.Category.GetCategory;
 
-public class GetCategoryTest
+[Collection(nameof(GetCategoryTestFixture))]
+public class GetCategoryTest(GetCategoryTestFixture fixture)
 {
     
 }
