@@ -34,7 +34,7 @@ public class CreateCategoryTestFixture : BaseFixture
         return categoryName;
     }
 
-    private string GetValidDescription()
+    public string GetValidDescription()
     {
         var categoryDescription = Faker.Commerce.ProductDescription();
 
