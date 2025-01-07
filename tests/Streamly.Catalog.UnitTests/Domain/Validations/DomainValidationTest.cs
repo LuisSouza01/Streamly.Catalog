@@ -201,4 +201,33 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
 
         #endregion
     }
+    
+    [Theory(DisplayName = nameof(ShouldNotThrowWhenValueGreaterThanMin))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    [MemberData(
+        nameof(DomainValidationTestDataGenerator.GetValuesSmallerThanLength), 
+        parameters: 10, 
+        MemberType = typeof(DomainValidationTestDataGenerator)
+    )]
+    public void ShouldNotThrowWhenValueSmallerThanMax(string value, int maxLength)
+    {
+        #region Arrange
+        
+            var fieldName = fixture.GetExampleFieldName();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => DomainValidation.MaxLength(value, maxLength, fieldName);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().NotThrow();
+
+        #endregion
+    }
 }
