@@ -171,4 +171,34 @@ public class DomainValidationTest(DomainValidationTestFixture fixture)
 
         #endregion
     }
+    
+    [Theory(DisplayName = nameof(ShouldThrowWhenValueGreaterThanMax))]
+    [Trait("Domain", "DomainValidation - Validation")]
+    [MemberData(
+        nameof(DomainValidationTestDataGenerator.GetValuesSmallerThanLength), 
+        parameters: 10, 
+        MemberType = typeof(DomainValidationTestDataGenerator)
+    )]
+    public void ShouldThrowWhenValueGreaterThanMax(string invalidValue, int maxLength)
+    {
+        #region Arrange
+        
+            var fieldName = fixture.GetExampleFieldName();
+
+        #endregion
+
+        #region Act
+
+            var action =
+                () => DomainValidation.MaxLength(invalidValue, maxLength, fieldName);
+
+        #endregion
+
+        #region Assert
+
+            action.Should().Throw<EntityValidationException>()
+                .WithMessage($"{fieldName} should be less or equal {maxLength} characters long.");
+
+        #endregion
+    }
 }
