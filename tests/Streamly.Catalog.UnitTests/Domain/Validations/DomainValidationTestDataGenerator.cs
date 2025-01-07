@@ -1,3 +1,5 @@
+using Bogus;
+
 namespace Streamly.Catalog.UnitTests.Domain.Validations;
 
 public static class DomainValidationTestDataGenerator
@@ -16,6 +18,20 @@ public static class DomainValidationTestDataGenerator
             var invalidValue = invalidValues[i % invalidValues.Length];
 
             yield return new object[] { invalidValue! };
+        }
+    }
+
+    public static IEnumerable<object[]> GetValuesSmallerThanMin(int numberOfTests)
+    {
+        var faker = new Faker();
+
+        for (var i = 0; i < numberOfTests; i++)
+        {
+            var value = faker.Commerce.ProductName();
+
+            var minLength = value.Length + new Random().Next(1, 20);
+
+            yield return new object[] { value, minLength };
         }
     }
 }
