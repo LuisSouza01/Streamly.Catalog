@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Moq;
 using Streamly.Catalog.Application.Exceptions;
+using Streamly.Catalog.Domain.Exceptions;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 using UseCases = Streamly.Catalog.Application.UseCases.Category.UpdateCategory;
 
@@ -255,6 +256,59 @@ public class UpdateCategoryTest(UpdateCategoryTestFixture fixture)
             output.Name.Should().Be(input.Name);
             output.Description.Should().Be(validCategory.Description);
             output.IsActive.Should().Be(validCategory.IsActive);
+
+        #endregion
+    }
+
+    [Theory(DisplayName = nameof(ShouldThrowWhenCanUpdateCategory))]
+    [Trait("Application", "UpdateCategory - UseCases")]
+    [MemberData(
+        nameof(UpdateCategoryTestDataGenerator.GetInvalidInputs),
+        parameters: 10,
+        MemberType = typeof(UpdateCategoryTestDataGenerator)
+    )]
+    public async Task ShouldThrowWhenCanUpdateCategory(UseCases.UpdateCategoryInput invalidInput, string exceptionMessage)
+    {
+        #region Arrange
+
+            var exampleCategory = fixture.GetExampleCategory();
+            
+            invalidInput.Id = exampleCategory.Id;
+            
+            var unitOfWorkMock = fixture.GetUnitOfWorkMock();
+            var repositoryMock = fixture.GetCategoryRepositoryMock();
+                
+            repositoryMock.Setup(x => x.GetAsync(
+                exampleCategory.Id, 
+                It.IsAny<CancellationToken>()
+            )).ReturnsAsync(exampleCategory);
+                    
+            var useCase = new UseCases.UpdateCategory(
+                repositoryMock.Object,
+                unitOfWorkMock.Object
+            );
+
+        #endregion
+
+        #region Act
+
+            var task =
+                async () => await useCase.Handle(invalidInput, CancellationToken.None);
+
+        #endregion
+
+        #region Assert
+
+            await task.Should().ThrowAsync<EntityValidationException>()
+                .WithMessage(exceptionMessage);
+            
+            repositoryMock.Verify(
+                repository => repository.GetAsync(
+                    exampleCategory.Id, 
+                    It.IsAny<CancellationToken>()
+                ), 
+                Times.Once
+            );
 
         #endregion
     }
