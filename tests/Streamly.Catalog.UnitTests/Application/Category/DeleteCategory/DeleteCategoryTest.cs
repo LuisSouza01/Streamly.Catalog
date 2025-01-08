@@ -1,6 +1,7 @@
 namespace Streamly.Catalog.UnitTests.Application.Category.DeleteCategory;
 
-public class DeleteCategoryTest
+[Collection(nameof(DeleteCategoryTestFixture))]
+public class DeleteCategoryTest(DeleteCategoryTestFixture fixture)
 {
     
 }
