@@ -1,9 +1,18 @@
+using Moq;
+using Streamly.Catalog.Application.Interfaces;
+using Streamly.Catalog.Domain.Repositories;
 using Streamly.Catalog.UnitTests.Common;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.UpdateCategory;
 
 public class UpdateCategoryTestFixture : BaseFixture
 {
+    public Mock<IUnitOfWork> GetUnitOfWorkMock()
+        => new();
+    
+    public Mock<ICategoryRepository> GetCategoryRepositoryMock()
+        => new();
+    
     public UpdateCategoryInput GetValidInput(Guid? id = null)
         => new(
             id ?? Guid.NewGuid(),
