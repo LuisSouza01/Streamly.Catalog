@@ -2,6 +2,7 @@ using Moq;
 using Streamly.Catalog.Application.Interfaces;
 using Streamly.Catalog.Domain.Repositories;
 using Streamly.Catalog.UnitTests.Common;
+using DomainEntity = Streamly.Catalog.Domain.Entities;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.UpdateCategory;
 
@@ -12,6 +13,13 @@ public class UpdateCategoryTestFixture : BaseFixture
     
     public Mock<ICategoryRepository> GetCategoryRepositoryMock()
         => new();
+    
+    public DomainEntity.Category GetExampleCategory()
+        => new(
+            GetValidName(),
+            GetValidDescription(),
+            GetRandomBoolean()
+        );
     
     public UpdateCategoryInput GetValidInput(Guid? id = null)
         => new(
