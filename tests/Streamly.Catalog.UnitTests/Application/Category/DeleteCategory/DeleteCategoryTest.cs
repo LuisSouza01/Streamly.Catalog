@@ -1,4 +1,5 @@
 using Moq;
+using UseCases = Streamly.Catalog.Application.UseCases.Category.DeleteCategory;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.DeleteCategory;
 
