@@ -1,5 +1,6 @@
 using Moq;
 using Streamly.Catalog.Application.Interfaces;
+using Streamly.Catalog.Application.UseCases.Category.UpdateCategory;
 using Streamly.Catalog.Domain.Repositories;
 using Streamly.Catalog.UnitTests.Common;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
@@ -58,4 +59,4 @@ public class UpdateCategoryTestFixture : BaseFixture
 
 [CollectionDefinition(nameof(UpdateCategoryTestFixture))]
 public class UpdateCategoryTestFixtureCollection
-    : UpdateCategoryTestFixture {}
+    : ICollectionFixture<UpdateCategoryTestFixture> {}
