@@ -1,6 +1,8 @@
 namespace Streamly.Catalog.UnitTests.Application.Category.UpdateCategory;
 
-public class UpdateCategoryInputValidatorTest
+[Collection(nameof(UpdateCategoryTestFixture))]
+public class UpdateCategoryInputValidatorTest(
+    UpdateCategoryTestFixture fixture)
 {
     
 }
