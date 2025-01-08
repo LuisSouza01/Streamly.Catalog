@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Moq;
+using Streamly.Catalog.Application.Exceptions;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 using UseCases = Streamly.Catalog.Application.UseCases.Category.UpdateCategory;
 
@@ -69,6 +70,50 @@ public class UpdateCategoryTest(UpdateCategoryTestFixture fixture)
             output.Name.Should().Be(input.Name);
             output.Description.Should().Be(input.Description);
             output.IsActive.Should().Be((bool)input.IsActive!);
+
+        #endregion
+    }
+
+    [Fact(DisplayName = nameof(ShouldThrowWhenCategoryNotFound))]
+    [Trait("Application", "UpdateCategory - UseCases")]
+    public async Task ShouldThrowWhenCategoryNotFound()
+    {
+        #region Arrange
+
+            var repositoryMock = fixture.GetCategoryRepositoryMock();
+            var unitOfWorkMock = fixture.GetUnitOfWorkMock();
+            var input = fixture.GetValidInput();
+                    
+            repositoryMock.Setup(x => x.GetAsync(
+                input.Id,
+                It.IsAny<CancellationToken>()
+            )).ThrowsAsync(new NotFoundException($"Category '{input.Id} not found.'"));
+                    
+            var useCase = new UseCases.UpdateCategory(
+                repositoryMock.Object,
+                unitOfWorkMock.Object
+            );
+
+        #endregion
+
+        #region Act
+
+            var task = 
+                async () => await useCase.Handle(input, CancellationToken.None);
+
+        #endregion
+
+        #region Assert
+
+            await task.Should().ThrowAsync<NotFoundException>();
+            
+            repositoryMock.Verify(repository => 
+                    repository.GetAsync(
+                        input.Id,
+                        It.IsAny<CancellationToken>()
+                    ),
+                Times.Once
+            );
 
         #endregion
     }
