@@ -117,4 +117,145 @@ public class UpdateCategoryTest(UpdateCategoryTestFixture fixture)
 
         #endregion
     }
+    
+    [Theory(DisplayName = nameof(ShouldUpdateCategoryWithoutIsActive))]
+    [Trait("Application", "UpdateCategory - UseCases")]
+    [MemberData(
+        nameof(UpdateCategoryTestDataGenerator.GetCategoriesToUpdate), 
+        parameters: 10, 
+        MemberType = typeof(UpdateCategoryTestDataGenerator)
+    )]
+    public async Task ShouldUpdateCategoryWithoutIsActive(DomainEntity.Category validCategory, UseCases.UpdateCategoryInput exampleInput)
+    {
+        #region Arrange
+
+            var repositoryMock = fixture.GetCategoryRepositoryMock();
+            var unitOfWorkMock = fixture.GetUnitOfWorkMock();
+                
+            repositoryMock.Setup(x => x.GetAsync(
+                validCategory.Id, 
+                It.IsAny<CancellationToken>()
+            )).ReturnsAsync(validCategory);
+                
+            var useCase = new UseCases.UpdateCategory(
+                repositoryMock.Object,
+                unitOfWorkMock.Object
+            );
+            
+            var input = new UseCases.UpdateCategoryInput(
+                exampleInput.Id,
+                exampleInput.Name,
+                exampleInput.Description
+            );
+
+        #endregion
+
+        #region Act
+
+            var output = await useCase.Handle(input, CancellationToken.None);
+
+        #endregion
+
+        #region Assert
+
+            repositoryMock.Verify(repository => 
+                    repository.GetAsync(
+                        validCategory.Id,
+                        It.IsAny<CancellationToken>()
+                    ),
+                Times.Once
+            );
+                
+            repositoryMock.Verify(repository => 
+                    repository.UpdateAsync(
+                        validCategory,
+                        It.IsAny<CancellationToken>()
+                    ),
+                Times.Once
+            );
+                
+            unitOfWorkMock.Verify(repository => 
+                    repository.CommitAsync(
+                        It.IsAny<CancellationToken>()
+                    ),
+                Times.Once
+            );
+
+            output.Should().NotBeNull();
+            output.Name.Should().Be(input.Name);
+            output.Description.Should().Be(input.Description);
+            output.IsActive.Should().Be(validCategory.IsActive);
+
+        #endregion
+    }
+    
+    [Theory(DisplayName = nameof(ShouldUpdateCategoryOnlyWithName))]
+    [Trait("Application", "UpdateCategory - UseCases")]
+    [MemberData(
+        nameof(UpdateCategoryTestDataGenerator.GetCategoriesToUpdate), 
+        parameters: 10, 
+        MemberType = typeof(UpdateCategoryTestDataGenerator)
+    )]
+    public async Task ShouldUpdateCategoryOnlyWithName(DomainEntity.Category validCategory, UseCases.UpdateCategoryInput exampleInput)
+    {
+        #region Arrange
+
+            var repositoryMock = fixture.GetCategoryRepositoryMock();
+            var unitOfWorkMock = fixture.GetUnitOfWorkMock();
+                
+            repositoryMock.Setup(x => x.GetAsync(
+                validCategory.Id, 
+                It.IsAny<CancellationToken>()
+            )).ReturnsAsync(validCategory);
+                
+            var useCase = new UseCases.UpdateCategory(
+                repositoryMock.Object,
+                unitOfWorkMock.Object
+            );
+            
+            var input = new UseCases.UpdateCategoryInput(
+                exampleInput.Id,
+                exampleInput.Name
+            );
+
+        #endregion
+
+        #region Act
+
+            var output = await useCase.Handle(input, CancellationToken.None);
+
+        #endregion
+
+        #region Assert
+
+            repositoryMock.Verify(repository => 
+                    repository.GetAsync(
+                        validCategory.Id,
+                        It.IsAny<CancellationToken>()
+                    ),
+                Times.Once
+            );
+                
+            repositoryMock.Verify(repository => 
+                    repository.UpdateAsync(
+                        validCategory,
+                        It.IsAny<CancellationToken>()
+                    ),
+                Times.Once
+            );
+                
+            unitOfWorkMock.Verify(repository => 
+                    repository.CommitAsync(
+                        It.IsAny<CancellationToken>()
+                    ),
+                Times.Once
+            );
+
+            output.Should().NotBeNull();
+            output.Name.Should().Be(input.Name);
+            output.Description.Should().Be(validCategory.Description);
+            output.IsActive.Should().Be(validCategory.IsActive);
+
+        #endregion
+    }
 }
