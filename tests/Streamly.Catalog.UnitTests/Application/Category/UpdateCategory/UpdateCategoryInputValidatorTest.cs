@@ -1,3 +1,6 @@
+using FluentAssertions;
+using Streamly.Catalog.Application.UseCases.Category.UpdateCategory;
+
 namespace Streamly.Catalog.UnitTests.Application.Category.UpdateCategory;
 
 [Collection(nameof(UpdateCategoryTestFixture))]
@@ -6,7 +9,7 @@ public class UpdateCategoryInputValidatorTest(
 {
     [Fact(DisplayName = nameof(ShouldValidate))]
     [Trait("Application", "UpdateCategoryInputValidator - UseCases")]
-    public async Task ShouldValidate()
+    public void ShouldValidate()
     {
         #region Arrange
 
