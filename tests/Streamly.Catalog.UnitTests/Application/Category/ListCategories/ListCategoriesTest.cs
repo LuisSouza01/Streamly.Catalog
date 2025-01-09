@@ -1,6 +1,7 @@
 namespace Streamly.Catalog.UnitTests.Application.Category.ListCategories;
 
-public class ListCategoriesTest
+[Collection(nameof(ListCategoriesTestFixture))]
+public class ListCategoriesTest(ListCategoriesTestFixture fixture)
 {
     
 }
