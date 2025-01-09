@@ -168,4 +168,69 @@ public class ListCategoriesTest(ListCategoriesTestFixture fixture)
 
         #endregion
     }
+
+    [Fact(DisplayName = nameof(ShouldListCorrectlyWhenListIsEmpty))]
+    [Trait("Application", "ListCategories - UseCases")]
+    public async Task ShouldListCorrectlyWhenListIsEmpty()
+    {
+        #region Arrange
+
+            var repositoryMock = fixture.GetCategoryRepositoryMock();
+            
+            var input = fixture.GetExampleInput();
+
+            var outputRepositorySearch = new SearchOutput<DomainEntity.Category>(
+                currentPage: input.Page,
+                perPage: input.PerPage,
+                items: new List<DomainEntity.Category>().AsReadOnly(),
+                total: 0
+            );
+            
+            repositoryMock.Setup(repository =>
+                repository.SearchAsync(
+                    It.Is<SearchInput>(
+                        searchInput => searchInput.Page == input.Page
+                        && searchInput.PerPage == input.PerPage
+                        && searchInput.OrderBy == input.Sort
+                        && searchInput.Order == input.Dir
+                    ),
+                    It.IsAny<CancellationToken>()
+                )
+            ).ReturnsAsync(outputRepositorySearch);
+
+            var useCase = new UseCases.ListCategories(
+                repositoryMock.Object
+            );
+            
+        #endregion
+
+        #region Act
+
+            var output = await useCase.Handle(input, CancellationToken.None);
+
+        #endregion
+
+        #region Assert
+
+            output.Should().NotBeNull();
+            output.Page.Should().Be(outputRepositorySearch.CurrentPage);
+            output.PerPage.Should().Be(outputRepositorySearch.PerPage);
+            output.Total.Should().Be(0);
+            output.Items.Should().HaveCount(0);
+            
+            repositoryMock.Verify(repository =>
+                repository.SearchAsync(
+                    It.Is<SearchInput>(
+                        searchInput => searchInput.Page == input.Page
+                        && searchInput.PerPage == input.PerPage
+                        && searchInput.OrderBy == input.Sort
+                        && searchInput.Order == input.Dir
+                    ),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Once
+            );
+
+        #endregion
+    }
 }
