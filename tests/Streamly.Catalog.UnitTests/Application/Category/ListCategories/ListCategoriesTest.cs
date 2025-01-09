@@ -1,4 +1,9 @@
+using FluentAssertions;
 using Moq;
+using Streamly.Catalog.Application.UseCases.Category.Common;
+using Streamly.Catalog.Domain.SeedWork.SearchableRepository;
+using UseCases = Streamly.Catalog.Application.UseCases.Category.ListCategories;
+using DomainEntity = Streamly.Catalog.Domain.Entities;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.ListCategories;
 
@@ -24,9 +29,9 @@ public class ListCategoriesTest(ListCategoriesTestFixture fixture)
                 total: new Random().Next(50, 200)
             );
             
-            repositoryMock.Verify(repository => 
+            repositoryMock.Setup(repository => 
                 repository.SearchAsync(
-                    It.IsAny<SearchInput>(
+                    It.Is<SearchInput>(
                         searchInput => searchInput.Page == input.Page
                         && searchInput.PerPage == input.PerPage
                         && searchInput.OrderBy == input.Sort

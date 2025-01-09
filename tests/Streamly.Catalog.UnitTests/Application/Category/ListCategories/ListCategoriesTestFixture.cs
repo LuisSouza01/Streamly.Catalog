@@ -1,5 +1,7 @@
+using Streamly.Catalog.Domain.SeedWork.SearchableRepository;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 using Streamly.Catalog.UnitTests.Application.Category.Common;
+using UseCases = Streamly.Catalog.Application.UseCases.Category.ListCategories;
 
 namespace Streamly.Catalog.UnitTests.Application.Category.ListCategories;
 
@@ -17,7 +19,7 @@ public class ListCategoriesTestFixture : CategoryUseCasesBaseFixture
         return list;
     }
 
-    public ListCategoriesInput GetExampleInput()
+    public UseCases.ListCategoriesInput GetExampleInput()
     {
         var random = new Random();
         
