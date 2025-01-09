@@ -1,8 +1,9 @@
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 
-namespace Streamly.Catalog.Application.UseCases.Category.GetCategory;
+namespace Streamly.Catalog.Application.UseCases.Category.Common;
 
-public class GetCategoryOutput(Guid id,
+public class CategoryModelOutput(
+    Guid id,
     string name,
     string description,
     bool isActive,
@@ -14,7 +15,7 @@ public class GetCategoryOutput(Guid id,
     public bool IsActive { get; private set; } = isActive;
     public DateTime CreatedAt { get; private set; } = createdAt;
 
-    public static GetCategoryOutput FromCategory(DomainEntity.Category category)
+    public static CategoryModelOutput FromCategory(DomainEntity.Category category)
         => new (
             category.Id,
             category.Name,

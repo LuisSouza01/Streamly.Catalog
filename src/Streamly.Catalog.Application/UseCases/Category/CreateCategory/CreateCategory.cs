@@ -1,4 +1,5 @@
 using Streamly.Catalog.Application.Interfaces;
+using Streamly.Catalog.Application.UseCases.Category.Common;
 using Streamly.Catalog.Domain.Repositories;
 using DomainEntity = Streamly.Catalog.Domain.Entities;
 
@@ -8,7 +9,7 @@ public class CreateCategory(
     IUnitOfWork unitOfWork, 
     ICategoryRepository categoryRepository) : ICreateCategory
 {
-    public async Task<CreateCategoryOutput> Handle(CreateCategoryInput request, CancellationToken cancellationToken)
+    public async Task<CategoryModelOutput> Handle(CreateCategoryInput request, CancellationToken cancellationToken)
     {
         var category = new DomainEntity.Category(
             request.Name,
@@ -19,7 +20,7 @@ public class CreateCategory(
         await categoryRepository.InsertAsync(category, cancellationToken);
         await unitOfWork.CommitAsync(cancellationToken);
 
-        return CreateCategoryOutput
+        return CategoryModelOutput
             .FromCategory(category);
     }
 }

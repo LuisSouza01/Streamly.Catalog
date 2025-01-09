@@ -1,5 +1,6 @@
 using Streamly.Catalog.Domain.Repositories;
 using Streamly.Catalog.Application.Interfaces;
+using Streamly.Catalog.Application.UseCases.Category.Common;
 
 namespace Streamly.Catalog.Application.UseCases.Category.UpdateCategory;
 
@@ -7,7 +8,7 @@ public class UpdateCategory(
     ICategoryRepository categoryRepository, 
     IUnitOfWork unitOfWork) : IUpdateCategory
 {
-    public async Task<UpdateCategoryOutput> Handle(UpdateCategoryInput request, CancellationToken cancellationToken)
+    public async Task<CategoryModelOutput> Handle(UpdateCategoryInput request, CancellationToken cancellationToken)
     {
         var category = await categoryRepository.GetAsync(request.Id, cancellationToken);
         
@@ -33,7 +34,7 @@ public class UpdateCategory(
         
         await unitOfWork.CommitAsync(cancellationToken);
 
-        return UpdateCategoryOutput
+        return CategoryModelOutput
             .FromCategory(category);
     }
 }
